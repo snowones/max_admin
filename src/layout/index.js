@@ -19,7 +19,7 @@ render() {
                 <Nav/>
             </Sider>
             <Layout >
-                <Header style={{ background: '#fff', textAlign: 'center', padding: 0 }}>微信引流后台</Header>
+                <Header style={{ background: '#fff', textAlign: 'center', padding: 0 }}>大学生社区后台管理系统</Header>
                 <Content style={{ margin: '24px 16px 0' }}>
                     <div style={{ padding: 24, background: '#fff', minHeight: 460 }}>
                     {renderRoutes(this.props.route.children)}

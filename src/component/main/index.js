@@ -34,7 +34,7 @@ class Main extends Component {
 
     onChange = ()=>{
         api({
-            url:'http://182.92.64.245/tp5/public/index.php/index',
+            url:'http://localhost/tp5/public/index.php/index/index/selectAllUsers',
             // args: {
             // },
             callback: (res) => {
@@ -48,58 +48,31 @@ class Main extends Component {
      * 将返回的数据处理成数据表格需要的数据
      */
     showData = (data)=>{
+        console.log(data);
         let showData = [];// 渲染的数据
         
         for(let i=0;i<data.length;i++){
             showData.push({
                 id : "",
                 name : "",
-                count:"",
-                password :"",
-                address:"",
-                sign_person:"",
-                is_vip:"",
+                openid : "",
+                avatar_url : "",
+                create_time : "",
             })
         }
         
         for(let j=0;j<data.length;j++){
-            let is_vip = '普通';
-            if(data[j].is_vip){
-                is_vip = 'vip';
-            }
+            
             showData[j].id= data[j].id;
             showData[j].name= data[j].name;
-            showData[j].count= data[j].count;
-            showData[j].password= data[j].password;
-            showData[j].address= data[j].address;
-            showData[j].sign_person= data[j].sign_person;
-            showData[j].is_vip= is_vip;
+            showData[j].openid= data[j].openid;
+            showData[j].avatar_url= data[j].avatar_url;
+            showData[j].create_time= data[j].create_time;
         }
 
         this.setState({
             showData
         })
-
-    }
-
-    vipAction = (is_vip,id)=>{
-        let vipChange;
-        if(is_vip == '普通'){
-            vipChange = 1;
-        }else{
-            vipChange = 0;
-        }
-
-        api({
-            url:'http://182.92.64.245/tp5/public/Index/index/change',
-            args: {
-                is_vip : vipChange,
-                id
-            },
-            callback: (res) => {
-                this.onChange();
-            }
-        });
 
     }
 
@@ -112,30 +85,25 @@ class Main extends Component {
                 key: 'name',
             },
             {
-                title: '账号',
-                dataIndex: 'count',
-                key: 'count',
+                title: 'openid',
+                dataIndex: 'openid',
+                key: 'openid',
             },
             {
-                title: '密码',
-                dataIndex: 'password',
-                key: 'password',
+                title: '头像',
+                key: 'avatar_url',
+                render: (text, record) => (
+                    <div>
+                      <img style={{height:'49px'}} src={record.avatar_url}></img>
+                     </div>
+                )
             },
             {
-                title: '地址',
-                dataIndex: 'address',
-                key: 'address',
+                title: '注册时间',
+                dataIndex: 'create_time',
+                key: 'create_time',
             },
-            {
-                title: '个性签名',
-                dataIndex: 'sign_person',
-                key: 'sign_person',
-            },
-            {
-                title: '会员',
-                dataIndex: 'is_vip',
-                key: 'is_vip',
-            },
+           
             {
                 title:'操作',
                 key: 'action',
@@ -143,8 +111,8 @@ class Main extends Component {
                    
                     <div>
                         <Button style={{color:"#63B8FF"}} onClick = {() => {
-                            this.vipAction(record.is_vip,record.id);
-                        }} >升级/降级
+                            console.log('点击了编辑')
+                        }} >编辑
                         </Button>
                     </div>
                 ),
