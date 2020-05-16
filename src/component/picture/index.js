@@ -67,6 +67,19 @@ class Picture extends Component {
 
     }
 
+    delete = (id)=>{
+        api({
+            url:host + 'deletePictureById',
+            args: {
+                id
+            },
+            callback: (res) => {
+                this.onChange();
+            }
+        });
+    }
+
+
 
     render() {
         const columns = [
@@ -111,8 +124,8 @@ class Picture extends Component {
                    
                     <div>
                         <Button style={{color:"#63B8FF"}} onClick = {() => {
-                            console.log('点击了编辑')
-                        }} >编辑
+                           this.delete(record.id)
+                        }} >删除
                         </Button>
                     </div>
                 ),

@@ -61,17 +61,6 @@ class Main extends Component {
 
     }
 
-    delete = ()=>{
-        api({
-            url: host + 'selectAllUsers',
-            // args: {
-            // },
-            callback: (res) => {
-                this.onChange();
-            }
-        });
-    }
-
 
     render() {
         const columns = [
@@ -99,19 +88,19 @@ class Main extends Component {
                 dataIndex: 'create_time',
                 key: 'create_time',
             },
-            {
-                title:'操作',
-                key: 'action',
-                render: (record) => (
+            // {
+            //     title:'操作',
+            //     key: 'action',
+            //     render: (record) => (
                    
-                    <div>
-                        <Button style={{color:"#63B8FF"}} onClick = {() => {
-                            console.log('点击了编辑')
-                        }} >删除
-                        </Button>
-                    </div>
-                ),
-            }
+            //         <div>
+            //             <Button style={{color:"#63B8FF"}} onClick = {() => {
+            //                 console.log('点击了编辑')
+            //             }} >删除
+            //             </Button>
+            //         </div>
+            //     ),
+            // }
         ];
         return (
             <div>
