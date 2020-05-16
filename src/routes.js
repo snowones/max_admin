@@ -4,6 +4,12 @@ import Basiclayout from './layout/index';
 import Main from './component/main/index';
 //文章详情页面
 import Article from './component/article/index';
+//论坛详情页面
+import Discuss from './component/discuss/index';
+//闲置详情页面
+import Shop from './component/shop/index';
+//相册详情页面
+import Picture from './component/picture/index';
 //登录页面
 // import Login from './component/login/index';
 
@@ -27,6 +33,21 @@ var Routes = [
                     path: '/article',
                     exact: true,
                     component: Article
+                },
+                {
+                    path: '/discuss',
+                    exact: true,
+                    component: Discuss
+                },
+                {
+                    path: '/shop',
+                    exact: true,
+                    component: Shop
+                },
+                {
+                    path: '/picture',
+                    exact: true,
+                    component: Picture
                 },
                 // {
                 //     path: '/login',

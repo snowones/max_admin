@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import './index.scss';
 
 import {Table,Button} from 'antd';
+
 //封装好的公共方法
 import {api,host} from '../../public/until'
 
-class Main extends Component {
+
+class Discuss extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -19,7 +21,7 @@ class Main extends Component {
 
     onChange = ()=>{
         api({
-            url: host + 'selectAllUsers',
+            url:host + 'selectAllDiscuss',
             // args: {
             // },
             callback: (res) => {
@@ -40,18 +42,21 @@ class Main extends Component {
             showData.push({
                 id : "",
                 name : "",
-                openid : "",
-                avatar_url : "",
+                title : "",
+                content : "",
+                content_img : "",
                 create_time : "",
             })
         }
         
         for(let j=0;j<data.length;j++){
             
+            let content_img = JSON.parse(data[j].content_img);
             showData[j].id= data[j].id;
             showData[j].name= data[j].name;
-            showData[j].openid= data[j].openid;
-            showData[j].avatar_url= data[j].avatar_url;
+            showData[j].title= data[j].title;
+            showData[j].content= data[j].content;
+            showData[j].content_img= content_img;
             showData[j].create_time= data[j].create_time;
         }
 
@@ -61,44 +66,39 @@ class Main extends Component {
 
     }
 
-    delete = ()=>{
-        api({
-            url: host + 'selectAllUsers',
-            // args: {
-            // },
-            callback: (res) => {
-                this.onChange();
-            }
-        });
-    }
-
 
     render() {
         const columns = [
             {
-                title: '姓名',
+                title: '题主',
                 dataIndex: 'name',
                 key: 'name',
             },
             {
-                title: 'openid',
-                dataIndex: 'openid',
-                key: 'openid',
+                title: '题目',
+                dataIndex: 'title',
+                key: 'title',
             },
             {
-                title: '头像',
-                key: 'avatar_url',
+                title: '内容',
+                dataIndex: 'content',
+                key: 'content',
+            },
+            {
+                title: '内容图片',
+                key: 'content_img',
                 render: (text, record) => (
                     <div>
-                      <img style={{height:'49px'}} src={record.avatar_url}></img>
-                     </div>
+                        <img style={{height:'49px'}} src={record.content_img[0]}></img>
+                    </div>
                 )
             },
             {
-                title: '注册时间',
+                title: '发时间',
                 dataIndex: 'create_time',
                 key: 'create_time',
             },
+           
             {
                 title:'操作',
                 key: 'action',
@@ -107,7 +107,7 @@ class Main extends Component {
                     <div>
                         <Button style={{color:"#63B8FF"}} onClick = {() => {
                             console.log('点击了编辑')
-                        }} >删除
+                        }} >编辑
                         </Button>
                     </div>
                 ),
@@ -125,4 +125,4 @@ class Main extends Component {
     }
 }
 
-export default Main;
+export default Discuss;

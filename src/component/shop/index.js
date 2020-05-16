@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import './index.scss';
 
 import {Table,Button} from 'antd';
+
 //封装好的公共方法
 import {api,host} from '../../public/until'
 
-class Main extends Component {
+
+class Shop extends Component {
     constructor(props){
         super(props);
         this.state = {
@@ -19,7 +21,7 @@ class Main extends Component {
 
     onChange = ()=>{
         api({
-            url: host + 'selectAllUsers',
+            url:host + 'selectAllGoods',
             // args: {
             // },
             callback: (res) => {
@@ -39,19 +41,25 @@ class Main extends Component {
         for(let i=0;i<data.length;i++){
             showData.push({
                 id : "",
+                contact : "",
                 name : "",
-                openid : "",
-                avatar_url : "",
+                discount : "",
+                detail : "",
+                remarks : "",
+                image : "",
                 create_time : "",
             })
         }
         
         for(let j=0;j<data.length;j++){
-            
+            let image = JSON.parse(data[j].image);
             showData[j].id= data[j].id;
+            showData[j].contact= data[j].contact;
             showData[j].name= data[j].name;
-            showData[j].openid= data[j].openid;
-            showData[j].avatar_url= data[j].avatar_url;
+            showData[j].discount= data[j].discount;
+            showData[j].detail= data[j].detail;
+            showData[j].remarks= data[j].remarks;
+            showData[j].image= image;
             showData[j].create_time= data[j].create_time;
         }
 
@@ -61,44 +69,49 @@ class Main extends Component {
 
     }
 
-    delete = ()=>{
-        api({
-            url: host + 'selectAllUsers',
-            // args: {
-            // },
-            callback: (res) => {
-                this.onChange();
-            }
-        });
-    }
-
 
     render() {
         const columns = [
             {
-                title: '姓名',
+                title: '卖家',
                 dataIndex: 'name',
                 key: 'name',
             },
             {
-                title: 'openid',
-                dataIndex: 'openid',
-                key: 'openid',
+                title: '联系方式',
+                dataIndex: 'contact',
+                key: 'contact',
             },
             {
-                title: '头像',
-                key: 'avatar_url',
+                title: '价格',
+                dataIndex: 'discount',
+                key: 'discount',
+            },
+            {
+                title: '详情',
+                dataIndex: 'detail',
+                key: 'detail',
+            },
+            {
+                title: '备注',
+                dataIndex: 'remarks',
+                key: 'remarks',
+            },
+            {
+                title: '商品图片',
+                key: 'image',
                 render: (text, record) => (
                     <div>
-                      <img style={{height:'49px'}} src={record.avatar_url}></img>
+                      <img style={{height:'49px'}} src={record.image[0]}></img>
                      </div>
                 )
             },
             {
-                title: '注册时间',
+                title: '发表时间',
                 dataIndex: 'create_time',
                 key: 'create_time',
             },
+           
             {
                 title:'操作',
                 key: 'action',
@@ -107,7 +120,7 @@ class Main extends Component {
                     <div>
                         <Button style={{color:"#63B8FF"}} onClick = {() => {
                             console.log('点击了编辑')
-                        }} >删除
+                        }} >编辑
                         </Button>
                     </div>
                 ),
@@ -125,4 +138,4 @@ class Main extends Component {
     }
 }
 
-export default Main;
+export default Shop;
