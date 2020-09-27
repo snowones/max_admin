@@ -16,7 +16,20 @@ class Shop extends Component {
     }
 
     componentDidMount(){
+        document.addEventListener('scroll', this.bindHandleScroll,true)
         this.onChange();
+    }
+
+    componentWillUnmount(){
+        document.removeEventListener("scroll", this.bindHandleScroll,true);
+    }
+
+    //监听滑动
+    bindHandleScroll = (event) =>{
+        console.log("--------------------------------");
+        console.log(window.scrollX,window.scrollY)
+        console.log(event)
+        console.log(document.documentElement.scrollTop)
     }
 
     onChange = ()=>{
@@ -62,6 +75,8 @@ class Shop extends Component {
             showData[j].image= image;
             showData[j].create_time= data[j].create_time;
         }
+
+        showData = showData.concat(showData);
 
         this.setState({
             showData
@@ -144,7 +159,7 @@ class Shop extends Component {
                     dataSource={this.state.showData} 
                     columns={columns}
                     rowKey={record => record.id}
-                />;
+                />
             </div>
         );
     }
