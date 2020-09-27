@@ -10,11 +10,13 @@ import Discuss from './component/discuss/index';
 import Shop from './component/shop/index';
 //相册详情页面
 import Picture from './component/picture/index';
+//手机端闲置物品详情页面
+import MobileShop from './component/MobileShop/index';
 //登录页面
 // import Login from './component/login/index';
 
 
-var Routes = [ 
+export const Routes = [ 
         {   
             path: '/',
             component: Basiclayout,
@@ -59,4 +61,10 @@ var Routes = [
         
 ]
 
-export default Routes
+export const MobileRoutes = [
+    {
+        path: '/mobileShop',
+        exact: true,
+        component: MobileShop
+    },
+]

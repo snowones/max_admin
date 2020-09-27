@@ -1,0 +1,21 @@
+.mobileShop{
+    .list{
+        .listItem{
+            .itemHeader{
+                background-color: chartreuse;
+                width: 100%;
+                height: 50px;
+                line-height: 50px;
+                font-size: 20px;
+            }
+            .itemItem{
+                height: 30px;
+
+            }
+            .fixed{
+                position: fixed;
+                top: 0;
+            }
+        }
+    }
+}
