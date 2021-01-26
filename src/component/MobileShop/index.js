@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './index.scss';
-import {Table,Button} from 'antd';
+import 'antd-mobile/dist/antd-mobile.css';
+import { PullToRefresh } from 'antd-mobile';
 //封装好的公共方法
 import {api,host} from '../../public/until'
 
@@ -11,6 +12,7 @@ class MobileShop extends Component {
         this.state = {
             showData:[],//需要做展示的数据
             topHeader:'',//吸顶的元素
+            refreshing:false,//下拉刷新
         }
     }
 
@@ -120,29 +122,41 @@ class MobileShop extends Component {
         let {showData,topHeader} =this.state;
      
         return (
-            <div className='mobileShop'>
-                <div className="list">
-                    {
-                        showData.map((data) =>{
-                            return(
-                                <div className="listItem">
-                                    <div className={topHeader == data.name ? 'fixed itemHeader' : 'itemHeader'} ref={data.name}>{data.name}</div>
-                                    {
-                                        data.data.map((data)=>{
-                                            return(
-                                                <div className='itemItem'>
-                                                    {data.name + '：' +data.detail}
-                                                </div>
-                                            )
-                                        })
-                                    }
-                                    
-                                </div>
-                            )
-                        })
-                    }
+            <PullToRefresh
+                damping={60}
+                direction='down' 
+                refreshing={this.state.refreshing}
+                onRefresh={() => {
+                    this.setState({ refreshing: true });
+                    setTimeout(() => {
+                        this.setState({ refreshing: false });
+                    }, 1000);
+                }}
+            >
+                <div className='mobileShop'>
+                    <div className="list">
+                        {
+                            showData.map((data) =>{
+                                return(
+                                    <div className="listItem">
+                                        <div className={topHeader == data.name ? 'fixed itemHeader' : 'itemHeader'} ref={data.name}>{data.name}</div>
+                                        {
+                                            data.data.map((data)=>{
+                                                return(
+                                                    <div className='itemItem'>
+                                                        {data.name + '：' +data.detail}
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                        
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
                 </div>
-            </div>
+            </PullToRefresh>  
         );
     }
 }
